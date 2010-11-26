@@ -55,13 +55,13 @@ public class VentanaPrincipal {
 		frmNormalizator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel txtTitulo = new JLabel("Normalizator");
-		txtTitulo.setBounds(228, 50, 140, 30);
+		txtTitulo.setBounds(248, 51, 140, 30);
 		txtTitulo.setPreferredSize(new Dimension(130, 80));
 		txtTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		txtTitulo.setFont(new Font("Arial", txtTitulo.getFont().getStyle() | Font.BOLD, 21));
 		
 		JLabel txtIntro = new JLabel("Normaliz\u00E1 y calcul\u00E1 las distintas claves de tus relaciones");
-		txtIntro.setLocation(49, 135);
+		txtIntro.setLocation(54, 136);
 		txtIntro.setPreferredSize(new Dimension(600, 170));
 		txtIntro.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		txtIntro.setHorizontalAlignment(SwingConstants.CENTER);
@@ -77,7 +77,7 @@ public class VentanaPrincipal {
 				nombreRelWin.setVisible(true);
 			}
 		});
-		btnComenzar.setBounds(243, 268, 125, 52);
+		btnComenzar.setBounds(263, 268, 125, 52);
 		btnComenzar.setFont(new Font("Arial", btnComenzar.getFont().getStyle(), 14));
 		btnComenzar.setPreferredSize(new Dimension(110, 40));
 		
