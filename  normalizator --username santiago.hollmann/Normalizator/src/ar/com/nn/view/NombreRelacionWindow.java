@@ -68,7 +68,7 @@ public class NombreRelacionWindow {
 		lblIngreseNombre.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		txtboxNombre = new JTextField();
-		txtboxNombre.setLocation(76, 156);
+		txtboxNombre.setLocation(76, 170);
 		txtboxNombre.setFont(new Font("Arial", txtboxNombre.getFont().getStyle(), 18));
 		txtboxNombre.setMinimumSize(new Dimension(500, 20));
 		txtboxNombre.setPreferredSize(new Dimension(500, 35));
@@ -79,7 +79,7 @@ public class NombreRelacionWindow {
 		
 		JButton btnAtras = new JButton("Atras");
 		btnAtras.setFont(new Font("Arial", btnAtras.getFont().getStyle(), 14));
-		btnAtras.setBounds(146, 266, 110, 40);
+		btnAtras.setBounds(141, 313, 110, 40);
 		btnAtras.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -94,7 +94,7 @@ public class NombreRelacionWindow {
 		
 		JButton btnSiguiente = new JButton("Siguiente");
 		btnSiguiente.setFont(new Font("Arial", btnSiguiente.getFont().getStyle(), 14));
-		btnSiguiente.setBounds(387, 266, 110, 40);
+		btnSiguiente.setBounds(387, 313, 110, 40);
 		
 		// Boton Siguiente
 		btnSiguiente.addMouseListener(new MouseAdapter() {
