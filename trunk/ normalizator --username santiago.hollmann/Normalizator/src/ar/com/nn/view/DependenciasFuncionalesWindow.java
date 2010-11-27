@@ -1,5 +1,6 @@
 package ar.com.nn.view;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.List;
 import java.awt.event.MouseAdapter;
@@ -13,6 +14,7 @@ import javax.swing.SwingConstants;
 
 import ar.com.nn.busisness.DepFuncional;
 import ar.com.nn.busisness.Relacion;
+import java.awt.Font;
 
 public class DependenciasFuncionalesWindow extends JFrame {
 
@@ -29,7 +31,8 @@ public class DependenciasFuncionalesWindow extends JFrame {
 	private List listaDeterminados;
 	private ArrayList<DepFuncional> arrayDF;
 	private List listaDepFunc;
-	
+	private Relacion r;
+
 	private static DependenciasFuncionalesWindow INSTANCE = null;
 
 	// creador sincronizado para protegerse de posibles problemas multi-hilo
@@ -58,9 +61,9 @@ public class DependenciasFuncionalesWindow extends JFrame {
 	 * Create the frame.
 	 */
 	public void initialize() {
-		Relacion r = Relacion.getInstance();
+		r = Relacion.getInstance();
 		arrayDF = new ArrayList<DepFuncional>();
-		
+
 		contenedor = new JFrame();
 		contenedor.setTitle("Normalizator");
 		contenedor.setResizable(false);
@@ -68,50 +71,28 @@ public class DependenciasFuncionalesWindow extends JFrame {
 		contenedor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contenedor.getContentPane().setLayout(null);
 
-		JButton btnSiguiente = new JButton("Siguiente");
-		btnSiguiente.setPreferredSize(new Dimension(110, 40));
-		btnSiguiente.setBounds(379, 321, 110, 40);
-		contenedor.add(btnSiguiente);
-
-		JButton btnAtras = new JButton("Atras");
-		btnAtras.setPreferredSize(new Dimension(110, 40));
-		btnAtras.setBounds(135, 321, 110, 40);
-		btnAtras.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				contenedor.setVisible(false);
-				CargaAtributosWindow cargaAt = CargaAtributosWindow
-						.getInstance();
-				cargaAt.setVisible(true);
-			}
-		});
-		contenedor.add(btnAtras);
 
 		JLabel lblCargueLasDependencias = new JLabel(
 				"Cargue las dependencias funcionales de la relaci\u00F3n");
+		contenedor.getContentPane().add(lblCargueLasDependencias);
 		lblCargueLasDependencias.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCargueLasDependencias.setBounds(150, 18, 324, 46);
-		contenedor.add(lblCargueLasDependencias);
+		lblCargueLasDependencias.setBounds(157, 6, 324, 46);
 
 		listaDeterminantes = new List();
+		contenedor.getContentPane().add(listaDeterminantes);
 		listaDeterminantes.setMultipleMode(true);
-		listaDeterminantes.setBounds(26, 70, 166, 232);
-		contenedor.add(listaDeterminantes);
-
-		listaDeterminados = new List();
-		listaDeterminados.setMultipleMode(true);
-		listaDeterminados.setBounds(221, 70, 166, 232);
-		contenedor.add(listaDeterminados);
+		listaDeterminantes.setBounds(33, 58, 166, 237);
 
 		listaDepFunc = new List();
-		listaDepFunc.setBounds(463, 70, 166, 232);
-		contenedor.add(listaDepFunc);
+		contenedor.getContentPane().add(listaDepFunc);
+		listaDepFunc.setBounds(457, 58, 166, 214);
 
 		JButton btnArmarDF = new JButton(">>");
-		btnArmarDF.setBounds(416, 156, 34, 40);
-		btnArmarDF.addMouseListener(new MouseAdapter(){
-
-			public void mouseClicked(MouseEvent e){
+		contenedor.getContentPane().add(btnArmarDF);
+		btnArmarDF.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		btnArmarDF.setBounds(410, 159, 34, 40);
+		btnArmarDF.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
 				determinante = listaDeterminantes.getSelectedItems();
 				determinado = listaDeterminados.getSelectedItems();
 				ArrayList<String> d = new ArrayList<String>();
@@ -123,20 +104,62 @@ public class DependenciasFuncionalesWindow extends JFrame {
 					doo.add(element);
 				}
 				DepFuncional df = new DepFuncional(d, doo);
-				System.out.println(df.toString());
 				arrayDF.add(df);
-				listaDepFunc.add(d.toString() + "->"+ doo.toString());
+				listaDepFunc.add(d.toString() + "->" + doo.toString());
 			}
 		});
-		contenedor.add(btnArmarDF);
+
+		listaDeterminados = new List();
+		contenedor.getContentPane().add(listaDeterminados);
+		listaDeterminados.setMultipleMode(true);
+		listaDeterminados.setBounds(230, 58, 166, 237);
+
+		JButton btnAtras = new JButton("Atr\u00E1s");
+		btnAtras.setFont(new Font("Arial", Font.PLAIN, 13));
+		contenedor.getContentPane().add(btnAtras);
+		btnAtras.setPreferredSize(new Dimension(110, 40));
+		btnAtras.setBounds(33, 313, 110, 40);
+
+		JButton btnBorrar = new JButton("Borrar");
+		btnBorrar.setBounds(457, 278, 166, 29);
+		btnBorrar.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				int index = listaDepFunc.getSelectedIndex();
+				arrayDF.remove(index);
+				listaDepFunc.remove(index);
+			}
+		});
+		
+		contenedor.getContentPane().add(btnBorrar);
+		btnAtras.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				contenedor.setVisible(false);
+				CargaAtributosWindow cargaAt = CargaAtributosWindow
+						.getInstance();
+				cargaAt.setVisible(true);
+			}
+		});
+
+		JButton btnSiguiente = new JButton("Siguiente");
+		contenedor.getContentPane().add(btnSiguiente);
+		btnSiguiente.setPreferredSize(new Dimension(110, 40));
+		btnSiguiente.setBounds(513, 313, 110, 40);
+		btnSiguiente.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				r.setDepFuncionales(arrayDF);
+				setVisible(false);
+				DatosRelacionWindow.getInstance().setVisible(true);
+			}
+		});
 
 		for (String element : Relacion.getInstance().getAtributos()) {
 			listaDeterminantes.add(element);
 			listaDeterminados.add(element);
-			
+
 		}
 	}
-	
+
 	public void setVisible(boolean b) {
 		if (b == true)
 			contenedor.setVisible(true);
