@@ -68,18 +68,12 @@ public class CargaAtributosWindow {
 		lblCargaLosAtributos.setBounds(145, 11, 324, 46);
 		contenedor.getContentPane().add(lblCargaLosAtributos);
 
-		JButton btAtras = new JButton("Atras");
-		btAtras.setFont(new Font("Arial", btAtras.getFont().getStyle(), 14));
-		btAtras.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				NombreRelacionWindow nombreRelWin = new NombreRelacionWindow();
-				nombreRelWin.setVisible(false);
-			}
-		});
-		btAtras.setPreferredSize(new Dimension(110, 40));
-		btAtras.setBounds(130, 314, 110, 40);
-		btAtras.addMouseListener(new MouseAdapter() {
+		JButton btnAtras = new JButton("Atr\u00E1s");
+		btnAtras.setFont(new Font("Arial", Font.PLAIN, 13));
+		contenedor.getContentPane().add(btnAtras);
+		btnAtras.setPreferredSize(new Dimension(110, 40));
+		btnAtras.setBounds(72, 325, 110, 29);
+		btnAtras.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				contenedor.setVisible(false);
@@ -89,14 +83,11 @@ public class CargaAtributosWindow {
 			}
 		});
 
-		contenedor.getContentPane().add(btAtras);
-
-		JButton btSiguiente = new JButton("Siguiente");
-		btSiguiente.setFont(new Font("Arial", btSiguiente.getFont().getStyle(),
-				14));
-		btSiguiente.setPreferredSize(new Dimension(110, 40));
-		btSiguiente.setBounds(374, 314, 110, 40);
-		btSiguiente.addMouseListener(new MouseAdapter() {
+		JButton btnSiguiente = new JButton("Siguiente");
+		contenedor.getContentPane().add(btnSiguiente);
+		btnSiguiente.setPreferredSize(new Dimension(110, 40));
+		btnSiguiente.setBounds(449, 324, 110, 29);
+		btnSiguiente.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				Relacion.getInstance().setAtributos(atributosRelacion);
 				System.out.println(Relacion.getInstance().getAtributos());
@@ -104,8 +95,6 @@ public class CargaAtributosWindow {
 				DependenciasFuncionalesWindow.getInstance().setVisible(true);
 			}
 		});
-		contenedor.getContentPane().add(btSiguiente);
-
 		txtfieldCargarAtributos = new JTextField();
 		txtfieldCargarAtributos.setSize(new Dimension(496, 35));
 		txtfieldCargarAtributos.setPreferredSize(new Dimension(500, 35));

@@ -68,7 +68,7 @@ public class VentanaPrincipal {
 		txtIntro.setFont(new Font("Arial", txtIntro.getFont().getStyle(), 15));
 		txtIntro.setSize(530, 66);
 		
-		JButton btnComenzar = new JButton("COMENZAR");
+		JButton btnComenzar = new JButton("Comenzar");
 		btnComenzar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -77,8 +77,7 @@ public class VentanaPrincipal {
 				nombreRelWin.setVisible(true);
 			}
 		});
-		btnComenzar.setBounds(263, 268, 125, 52);
-		btnComenzar.setFont(new Font("Arial", btnComenzar.getFont().getStyle(), 14));
+		btnComenzar.setBounds(260, 296, 128, 24);
 		btnComenzar.setPreferredSize(new Dimension(110, 40));
 		
 		JPanel panelAbsoluto = new JPanel();

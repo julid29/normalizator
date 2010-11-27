@@ -1,6 +1,5 @@
 package ar.com.nn.view;
 
-import java.awt.Label;
 import java.awt.List;
 import java.util.ArrayList;
 
@@ -8,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import ar.com.nn.busisness.DepFuncional;
 import ar.com.nn.busisness.Relacion;
 
 public class DatosRelacionWindow extends JFrame {
@@ -22,7 +22,7 @@ public class DatosRelacionWindow extends JFrame {
 	private List listaSC;
 	private List listaCC;
 	private List listaDepFunc;
-	private Label lblFmin;
+	private List listFmin;
 	
 	private static DatosRelacionWindow INSTANCE;
 
@@ -55,14 +55,14 @@ public class DatosRelacionWindow extends JFrame {
 		contenedor.getContentPane().setLayout(null);
 
 		JLabel lblRelacionNombre = new JLabel("Relaci—n " + r.getNombre());
-		lblRelacionNombre.setBounds(132, 16, 396, 23);
+		lblRelacionNombre.setBounds(222, 10, 285, 23);
 		contenedor.getContentPane().add(lblRelacionNombre);
 
 		JLabel lblAtributos = new JLabel("R:" + r.getAtributos());
 		lblAtributos.setBounds(34, 45, 587, 23);
 		contenedor.getContentPane().add(lblAtributos);
 
-		JButton btnAtras = new JButton("Atras");
+		JButton btnAtras = new JButton("Atr\u00E1s");
 		btnAtras.setBounds(34, 322, 117, 29);
 		contenedor.getContentPane().add(btnAtras);
 
@@ -90,9 +90,9 @@ public class DatosRelacionWindow extends JFrame {
 		listaDepFunc.setBounds(254, 86, 175, 211);
 		contenedor.getContentPane().add(listaDepFunc);
 
-		lblFmin = new Label("");
-		lblFmin.setBounds(481, 89, 140, 227);
-		contenedor.getContentPane().add(lblFmin);
+		listFmin = new List();
+		listFmin.setBounds(481, 89, 140, 227);
+		contenedor.getContentPane().add(listFmin);
 
 		JLabel lblFminTitulo = new JLabel("Fmin");
 		lblFminTitulo.setBounds(481, 69, 61, 16);
@@ -102,9 +102,33 @@ public class DatosRelacionWindow extends JFrame {
 	}
 
 	private void completarDatos() {
+//		Cargo SC
 		ArrayList<String> sc = r.getSuperClave();
 		for (String s : sc){
 			listaSC.add(s);
+		}
+		
+//		Cargo CC
+		ArrayList<String> cc = r.getClavesCandidatas();
+		for (String s : cc){
+			listaCC.add(s);
+		}
+		
+//		Cargo Fmin
+		ArrayList<DepFuncional> fmin = r.getfMin();
+		ArrayList<String> de, doo;
+		for (DepFuncional df : fmin){
+			de = df.getDeterminantes();
+			doo = df.getDeterminados();
+			listFmin.add(de.toString() + "->" + doo.toString());
+		}
+		
+//		Cargo Def Funcionales
+		ArrayList<DepFuncional>dfs = r.getDepFuncionales();
+		for (DepFuncional df : dfs){
+			de = df.getDeterminantes();
+			doo = df.getDeterminados();
+			listaDepFunc.add(de.toString() + "->" + doo.toString());
 		}
 		
 	}

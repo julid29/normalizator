@@ -2,6 +2,7 @@ package ar.com.nn.view;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.List;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -14,7 +15,6 @@ import javax.swing.SwingConstants;
 
 import ar.com.nn.busisness.DepFuncional;
 import ar.com.nn.busisness.Relacion;
-import java.awt.Font;
 
 public class DependenciasFuncionalesWindow extends JFrame {
 
@@ -118,7 +118,7 @@ public class DependenciasFuncionalesWindow extends JFrame {
 		btnAtras.setFont(new Font("Arial", Font.PLAIN, 13));
 		contenedor.getContentPane().add(btnAtras);
 		btnAtras.setPreferredSize(new Dimension(110, 40));
-		btnAtras.setBounds(33, 313, 110, 40);
+		btnAtras.setBounds(33, 324, 110, 29);
 
 		JButton btnBorrar = new JButton("Borrar");
 		btnBorrar.setBounds(457, 278, 166, 29);
@@ -144,7 +144,7 @@ public class DependenciasFuncionalesWindow extends JFrame {
 		JButton btnSiguiente = new JButton("Siguiente");
 		contenedor.getContentPane().add(btnSiguiente);
 		btnSiguiente.setPreferredSize(new Dimension(110, 40));
-		btnSiguiente.setBounds(513, 313, 110, 40);
+		btnSiguiente.setBounds(513, 324, 110, 29);
 		btnSiguiente.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				r.setDepFuncionales(arrayDF);
