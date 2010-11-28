@@ -1,12 +1,15 @@
 package ar.com.nn.view;
 
 import java.awt.List;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import ar.com.nn.busisness.Clave;
 import ar.com.nn.busisness.DepFuncional;
 import ar.com.nn.busisness.Relacion;
 
@@ -55,7 +58,7 @@ public class DatosRelacionWindow extends JFrame {
 		contenedor.getContentPane().setLayout(null);
 
 		JLabel lblRelacionNombre = new JLabel("Relaci—n " + r.getNombre());
-		lblRelacionNombre.setBounds(222, 10, 285, 23);
+		lblRelacionNombre.setBounds(243, 10, 285, 23);
 		contenedor.getContentPane().add(lblRelacionNombre);
 
 		JLabel lblAtributos = new JLabel("R:" + r.getAtributos());
@@ -65,10 +68,23 @@ public class DatosRelacionWindow extends JFrame {
 		JButton btnAtras = new JButton("Atr\u00E1s");
 		btnAtras.setBounds(34, 322, 117, 29);
 		contenedor.getContentPane().add(btnAtras);
+		btnAtras.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				DependenciasFuncionalesWindow.getInstance().setVisible(true);
+				setVisible(false);
+			}
+		});
 
 		JButton btnSiguiente = new JButton("Siguiente");
 		btnSiguiente.setBounds(504, 322, 117, 29);
 		contenedor.getContentPane().add(btnSiguiente);
+		btnSiguiente.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				FormasNormalesWindow.getInstance().setVisible(true);
+				setVisible(false);
+				
+			}
+		});
 
 		listaSC = new List();
 		listaSC.setBounds(34, 89, 175, 91);
@@ -98,20 +114,27 @@ public class DatosRelacionWindow extends JFrame {
 		lblFminTitulo.setBounds(481, 69, 61, 16);
 		contenedor.getContentPane().add(lblFminTitulo);
 		
+		JLabel lblDependenciasFuncionales = new JLabel("Dependencias Funcionales");
+		lblDependenciasFuncionales.setBounds(222, 69, 181, 16);
+		contenedor.getContentPane().add(lblDependenciasFuncionales);
+		
 		completarDatos();
 	}
 
 	private void completarDatos() {
+//		Agregarlo a la clase Relacion
+		r.calcularClaves();
+		
 //		Cargo SC
-		ArrayList<String> sc = r.getSuperClave();
-		for (String s : sc){
-			listaSC.add(s);
+		ArrayList<Clave> sc = r.getSuperClaves();
+		for (Clave c : sc){
+			listaSC.add(c.toString());
 		}
 		
 //		Cargo CC
-		ArrayList<String> cc = r.getClavesCandidatas();
-		for (String s : cc){
-			listaCC.add(s);
+		ArrayList<Clave> cc = r.getClavesCandidatas();
+		for (Clave c : cc){
+			listaCC.add(c.toString());
 		}
 		
 //		Cargo Fmin
@@ -138,5 +161,13 @@ public class DatosRelacionWindow extends JFrame {
 			contenedor.setVisible(true);
 		else
 			contenedor.setVisible(false);
+	}
+	
+	public void clear(){
+		listaCC.removeAll();
+		listaDepFunc.removeAll();
+		listaSC.removeAll();
+		listFmin.removeAll();
+		
 	}
 }
