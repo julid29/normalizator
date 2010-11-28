@@ -2,11 +2,23 @@ package ar.com.nn.busisness;
 
 import java.util.ArrayList;
 
+import ar.com.nn.view.CargaAtributosWindow;
+import ar.com.nn.view.DatosRelacionWindow;
+import ar.com.nn.view.DependenciasFuncionalesWindow;
+import ar.com.nn.view.FormasNormalesWindow;
+import ar.com.nn.view.NombreRelacionWindow;
 import ar.com.nn.view.VentanaPrincipal;
 
 
 public class Admin {
 
+	public static void clearWindows(){
+		CargaAtributosWindow.getInstance().clear();
+		DatosRelacionWindow.getInstance().clear();
+		DependenciasFuncionalesWindow.getInstance().clear();
+		FormasNormalesWindow.getInstance().clear();
+		NombreRelacionWindow.getInstance().clear();
+	}
 	/**
 	 * @param args
 	 */

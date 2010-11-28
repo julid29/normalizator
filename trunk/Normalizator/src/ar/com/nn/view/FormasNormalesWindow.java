@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import ar.com.nn.busisness.Admin;
 import ar.com.nn.busisness.DepFuncional;
 import ar.com.nn.busisness.FormaNormal;
 import ar.com.nn.busisness.Relacion;
@@ -23,7 +24,7 @@ public class FormasNormalesWindow extends JFrame {
 	private List lista3FN;
 	private List listaFNBC;
 	private Relacion r;
-	
+
 	private JFrame contenedor;
 	private static FormasNormalesWindow INSTANCE;
 
@@ -75,6 +76,7 @@ public class FormasNormalesWindow extends JFrame {
 				v.clear();
 				v.setVisible(true);
 				setVisible(false);
+				Admin.clearWindows();
 			}
 		});
 		
@@ -118,25 +120,36 @@ public class FormasNormalesWindow extends JFrame {
 		
 		completarDatos();
 	}
-	
+
 	private void completarDatos() {
 		ArrayList<FormaNormal> fn = r.getFormaNormal3();
 		int i = 1;
-		for(FormaNormal r : fn){
+		String depfuncoinales = "";
+		for (FormaNormal r : fn) {
 			ArrayList<DepFuncional> df = r.getDepFuncionales();
-			lista3FN.add("R" + i + ": "+ r.getAtributos().toString() + " DF: ");
-			System.out.println("R" + i + ": "+ r.getAtributos().toString() + " DF: ");
+			for (DepFuncional d : df) {
+				depfuncoinales += d.getDeterminantes().toString() + "->"
+						+ d.getDeterminados() + " ";
+			}
+			lista3FN.add("R" + i + ": " + r.getAtributos().toString() + " DF: "
+					+ depfuncoinales);
 			i++;
 		}
-		
+
 		ArrayList<FormaNormal> fnbc = r.getFormaNormalBC();
 		i = 1;
-		for(FormaNormal r : fnbc){
-			listaFNBC.add("R" + i + ": "+ r.getAtributos().toString() + " DF: " + r.getDepFuncionales().toString());
-			System.out.println("R" + i + ": "+ r.getAtributos().toString() + " DF: " + r.getDepFuncionales().toString());
+		depfuncoinales = "";
+		for (FormaNormal r : fnbc) {
+			ArrayList<DepFuncional> df = r.getDepFuncionales();
+			for (DepFuncional d : df) {
+				depfuncoinales += d.getDeterminantes().toString() + "->"
+						+ d.getDeterminados() + " ";
+			}
+			listaFNBC.add("R" + i + ": " + r.getAtributos().toString()
+					+ " DF: " + depfuncoinales);
 			i++;
 		}
-		
+
 	}
 
 	public void setVisible(boolean b) {
@@ -144,5 +157,10 @@ public class FormasNormalesWindow extends JFrame {
 			contenedor.setVisible(true);
 		else
 			contenedor.setVisible(false);
+	}
+
+	public void clear() {
+		lista3FN.removeAll();
+		listaFNBC.removeAll();
 	}
 }

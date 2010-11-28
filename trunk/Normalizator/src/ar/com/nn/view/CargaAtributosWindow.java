@@ -3,6 +3,9 @@ package ar.com.nn.view;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.List;
+import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -103,9 +106,20 @@ public class CargaAtributosWindow {
 		txtfieldCargarAtributos.setColumns(35);
 		txtfieldCargarAtributos.setBounds(82, 68, 350, 35);
 		contenedor.getContentPane().add(txtfieldCargarAtributos);
-		txtfieldCargarAtributos.addMouseListener(new MouseAdapter(){
-			public void mouseClicked(MouseEvent e){
+		txtfieldCargarAtributos.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
 				txtfieldCargarAtributos.setText("");
+			}
+		});
+		txtfieldCargarAtributos.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				int key = e.getKeyCode();
+				if (key == KeyEvent.VK_ENTER) {
+					atributo = txtfieldCargarAtributos.getText();
+					listaAtributos.add(atributo);
+					atributosRelacion.add(atributo);
+					txtfieldCargarAtributos.setText("");
+				}
 			}
 		});
 
@@ -148,8 +162,8 @@ public class CargaAtributosWindow {
 		else
 			contenedor.setVisible(false);
 	}
-	
-	public void clear(){
+
+	public void clear() {
 		atributosRelacion.clear();
 		listaAtributos.removeAll();
 		txtfieldCargarAtributos.setText("");
