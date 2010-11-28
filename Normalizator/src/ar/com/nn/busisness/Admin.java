@@ -41,11 +41,12 @@ public class Admin {
 				System.out.println(s);
 			}
 		}
-		
+		r.calcularClaves();
+		System.out.println(r.getFormaNormal());
 		r.calcular3FormaNormal();
 		System.out.println("3ra forma normal");
-		System.out.println("Atributos:");
 		for (FormaNormal fn3 : r.getFormaNormal3()) {
+			System.out.println("Atributos:");
 			for(String a : fn3.getAtributos()){
 					System.out.println(a);
 			}
