@@ -2,6 +2,8 @@ package ar.com.nn.busisness;
 
 import java.util.ArrayList;
 
+import ar.com.nn.view.VentanaPrincipal;
+
 
 public class Admin {
 
@@ -10,7 +12,7 @@ public class Admin {
 	 */
 	public static void main(String[] args) {
 		System.out.println("Bienvenido al aplicativo BD");
-		
+		VentanaPrincipal.getInstance();
 		ArrayList<String> atributos = new ArrayList<String>();
 		atributos.add("a");
 		atributos.add("b");
