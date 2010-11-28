@@ -81,16 +81,16 @@ public class DependenciasFuncionalesWindow extends JFrame {
 		listaDeterminantes = new List();
 		contenedor.getContentPane().add(listaDeterminantes);
 		listaDeterminantes.setMultipleMode(true);
-		listaDeterminantes.setBounds(33, 58, 166, 237);
+		listaDeterminantes.setBounds(33, 58, 145, 243);
 
 		listaDepFunc = new List();
 		contenedor.getContentPane().add(listaDepFunc);
-		listaDepFunc.setBounds(457, 58, 166, 214);
+		listaDepFunc.setBounds(383, 58, 240, 214);
 
 		JButton btnArmarDF = new JButton(">>");
 		contenedor.getContentPane().add(btnArmarDF);
 		btnArmarDF.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		btnArmarDF.setBounds(410, 159, 34, 40);
+		btnArmarDF.setBounds(343, 148, 34, 40);
 		btnArmarDF.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				determinante = listaDeterminantes.getSelectedItems();
@@ -112,7 +112,7 @@ public class DependenciasFuncionalesWindow extends JFrame {
 		listaDeterminados = new List();
 		contenedor.getContentPane().add(listaDeterminados);
 		listaDeterminados.setMultipleMode(true);
-		listaDeterminados.setBounds(230, 58, 166, 237);
+		listaDeterminados.setBounds(192, 58, 145, 243);
 
 		JButton btnAtras = new JButton("Atr\u00E1s");
 		btnAtras.setFont(new Font("Arial", Font.PLAIN, 13));
@@ -121,7 +121,7 @@ public class DependenciasFuncionalesWindow extends JFrame {
 		btnAtras.setBounds(33, 324, 110, 29);
 
 		JButton btnBorrar = new JButton("Borrar");
-		btnBorrar.setBounds(457, 278, 166, 29);
+		btnBorrar.setBounds(383, 278, 240, 29);
 		btnBorrar.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
 				int index = listaDepFunc.getSelectedIndex();
@@ -165,5 +165,12 @@ public class DependenciasFuncionalesWindow extends JFrame {
 			contenedor.setVisible(true);
 		else
 			contenedor.setVisible(false);
+	}
+	
+	public void clear(){
+		listaDepFunc.removeAll();
+		listaDeterminados.removeAll();
+		listaDeterminantes.removeAll();
+		arrayDF.clear();
 	}
 }

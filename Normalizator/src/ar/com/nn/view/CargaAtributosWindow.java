@@ -103,6 +103,11 @@ public class CargaAtributosWindow {
 		txtfieldCargarAtributos.setColumns(35);
 		txtfieldCargarAtributos.setBounds(82, 68, 350, 35);
 		contenedor.getContentPane().add(txtfieldCargarAtributos);
+		txtfieldCargarAtributos.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				txtfieldCargarAtributos.setText("");
+			}
+		});
 
 		JButton btnCargar = new JButton("Cargar");
 		btnCargar
@@ -135,7 +140,6 @@ public class CargaAtributosWindow {
 				atributosRelacion.remove(index);
 			}
 		});
-
 	}
 
 	public void setVisible(boolean b) {
@@ -143,5 +147,11 @@ public class CargaAtributosWindow {
 			contenedor.setVisible(true);
 		else
 			contenedor.setVisible(false);
+	}
+	
+	public void clear(){
+		atributosRelacion.clear();
+		listaAtributos.removeAll();
+		txtfieldCargarAtributos.setText("");
 	}
 }
