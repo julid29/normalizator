@@ -13,6 +13,7 @@ import ar.com.nn.view.VentanaPrincipal;
 public class Admin {
 
 	public static void clearWindows(){
+		Relacion.getInstance().clear();
 		CargaAtributosWindow.getInstance().clear();
 		DatosRelacionWindow.getInstance().clear();
 		DependenciasFuncionalesWindow.getInstance().clear();
