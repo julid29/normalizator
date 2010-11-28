@@ -79,6 +79,7 @@ public class Relacion {
 	}
 
 	public ArrayList<DepFuncional> getfMin() {
+		obtenerFmin();
 		return fMin;
 	}
 
@@ -97,6 +98,7 @@ public class Relacion {
 	}
 
 	public ArrayList<FormaNormal> getFormaNormal3() {
+		calcular3FormaNormal();
 		return formaNormal3;
 	}
 
@@ -105,6 +107,7 @@ public class Relacion {
 	}
 
 	public ArrayList<FormaNormal> getFormaNormalBC() {
+		calcularFNBC();
 		return formaNormalBC;
 	}
 
@@ -248,7 +251,7 @@ public class Relacion {
 
 		// A las dependencias marcadas las elimino.
 		Iterator<DepFuncional> iterador = this.fMin.iterator();
-		while (iterador.hasNext()){
+		while (iterador.hasNext()) {
 			DepFuncional dF = iterador.next();
 			if (dF.getMarca())
 				iterador.remove();
@@ -271,67 +274,69 @@ public class Relacion {
 	}
 
 	public String verificarFormaNormal() {
-		int i=0,aux=1;
+		int i = 0, aux = 1;
 		String stringFormaNormal = "";
 
-		if (atributos.size() == 2){
+		if (atributos.size() == 2) {
 			stringFormaNormal = "Forma Normal de Boyce Cott.";
 			return stringFormaNormal;
 		}
-		for(DepFuncional depFun : this.depFuncionales){
-			//El o los determinantes, NO pertenecen a algun subconjunto de alguna clave de R
-			for (Clave cCandidata : this.clavesCandidatas){
-				if (!depFun.getDeterminantes().containsAll(cCandidata.getAtributos())){
-					aux=2;
-				break;
-				}
-				else
-					aux=1;
-			}
-			//El o los determinados, son un atributo primo.
-			for (Clave cCandidata : this.clavesCandidatas){
-				if (cCandidata.getAtributos().containsAll(depFun.getDeterminados())){ 
-					aux=3;
-				break;
-				}
-				else
-					aux=1;
-			}
-			//El o los determinantes, son superClave.
-			for (Clave cCandidata : this.superClaves){
-				if (cCandidata.getAtributos().containsAll(depFun.getDeterminantes())
-						&& cCandidata.getAtributos().size() == depFun.getDeterminantes().size()){
-					aux=4;
+		for (DepFuncional depFun : this.depFuncionales) {
+			// El o los determinantes, NO pertenecen a algun subconjunto de
+			// alguna clave de R
+			for (Clave cCandidata : this.clavesCandidatas) {
+				if (!depFun.getDeterminantes().containsAll(
+						cCandidata.getAtributos())) {
+					aux = 2;
 					break;
-				}
-				else
-					aux=1;
+				} else
+					aux = 1;
 			}
-			if (i==0)
-				i=aux;
-			else{
-				if (i>aux)
+			// El o los determinados, son un atributo primo.
+			for (Clave cCandidata : this.clavesCandidatas) {
+				if (cCandidata.getAtributos().containsAll(
+						depFun.getDeterminados())) {
+					aux = 3;
+					break;
+				} else
+					aux = 1;
+			}
+			// El o los determinantes, son superClave.
+			for (Clave cCandidata : this.superClaves) {
+				if (cCandidata.getAtributos().containsAll(
+						depFun.getDeterminantes())
+						&& cCandidata.getAtributos().size() == depFun
+								.getDeterminantes().size()) {
+					aux = 4;
+					break;
+				} else
+					aux = 1;
+			}
+			if (i == 0)
+				i = aux;
+			else {
+				if (i > aux)
 					i = aux;
 			}
 		}
-		
-		switch(i){
-			case 1:
-				stringFormaNormal="1ra Forma Normal.";
-				break;
-			case 2:
-				stringFormaNormal="2da FormaNormal.";
-				break;
-			case 3:
-				stringFormaNormal="3ra Forma Normal.";
-				break;
-			case 4:
-				stringFormaNormal="Forma Normal de Boyce Cott.";
-				break;
+
+		switch (i) {
+		case 1:
+			stringFormaNormal = "1ra Forma Normal.";
+			break;
+		case 2:
+			stringFormaNormal = "2da FormaNormal.";
+			break;
+		case 3:
+			stringFormaNormal = "3ra Forma Normal.";
+			break;
+		case 4:
+			stringFormaNormal = "Forma Normal de Boyce Cott.";
+			break;
 		}
-		
+
 		return stringFormaNormal;
-		
+
 	}
 
 	/**
@@ -364,8 +369,8 @@ public class Relacion {
 			crear = true;
 			for (FormaNormal forma : this.formaNormal3) {
 				if (forma.getDeterminantes().containsAll(clave.getAtributos())
-						&& forma.getDeterminantes().size() == clave.getAtributos()
-								.size()) {
+						&& forma.getDeterminantes().size() == clave
+								.getAtributos().size()) {
 					crear = false;
 					break;
 				}
@@ -381,17 +386,18 @@ public class Relacion {
 
 	private void verificarUniones() {
 		Iterator<FormaNormal> iterador = this.formaNormal3.iterator();
-//		int i = 0;
-		for(FormaNormal forma : this.formaNormal3){
-			while(iterador.hasNext()){
+		// int i = 0;
+		for (FormaNormal forma : this.formaNormal3) {
+			while (iterador.hasNext()) {
 				FormaNormal formaATratar = iterador.next();
-				if (forma != formaATratar){
+				if (forma != formaATratar) {
 					if (forma.getDeterminantes().size() == formaATratar
 							.getDeterminantes().size()
 							&& formaATratar.getDeterminantes().containsAll(
 									forma.getDeterminantes())) {
 						forma.agregarAtributos(formaATratar.getDeterminados());
-						forma.agregarDepFuncionales(formaATratar.getDepFuncionales());
+						forma.agregarDepFuncionales(formaATratar
+								.getDepFuncionales());
 						iterador.remove();
 					}
 				}
@@ -458,7 +464,7 @@ public class Relacion {
 		}
 	}
 
-	public void calcularClaves(){
+	public void calcularClaves() {
 		this.calcularSuperClaves();
 		this.calcularClavesCandidatas();
 	}
@@ -466,30 +472,31 @@ public class Relacion {
 	private void calcularClavesCandidatas() {
 		int i = 0, aux = 0;
 		i = this.superClaves.get(0).getAtributos().size();
-		for (Clave superClave : this.superClaves){
+		for (Clave superClave : this.superClaves) {
 			aux = superClave.getAtributos().size();
 			if (aux < i)
 				i = aux;
 		}
-		
-		for (Clave superClave : this.superClaves){
+
+		for (Clave superClave : this.superClaves) {
 			aux = superClave.getAtributos().size();
-			if (aux == i){
+			if (aux == i) {
 				this.clavesCandidatas.add(superClave);
 			}
 		}
 	}
 
 	private void calcularSuperClaves() {
-		int i =1;
-		while (i<=this.atributos.size()){
-			
-			CombinatorialIterator<String> iterador = new CombinatorialIterator<String>(i, this.atributos);
-			
-			while (iterador.hasNext()){
+		int i = 1;
+		while (i <= this.atributos.size()) {
+
+			CombinatorialIterator<String> iterador = new CombinatorialIterator<String>(
+					i, this.atributos);
+
+			while (iterador.hasNext()) {
 				Clave superClave = new Clave();
 				Collection<String> aux = iterador.next();
-				for (String s : aux){
+				for (String s : aux) {
 					superClave.agregarAtributo(s);
 				}
 				this.superClaves.add(superClave);
@@ -497,10 +504,25 @@ public class Relacion {
 			i++;
 		}
 		Iterator<Clave> claves = this.superClaves.iterator();
-		while (claves.hasNext()){
+		while (claves.hasNext()) {
 			Clave aux = claves.next();
-			if (!(calcularClausura(aux.getAtributos(), 0).size() == this.atributos.size()))
+			if (!(calcularClausura(aux.getAtributos(), 0).size() == this.atributos
+					.size()))
 				claves.remove();
 		}
 	}
+
+	public void clear() {
+		atributos = new ArrayList<String>();
+		clavesCandidatas = new ArrayList<Clave>();
+		depFuncionales = new ArrayList<DepFuncional>();
+		fMin = new ArrayList<DepFuncional>();
+		formaNormal = "";
+		formaNormal3 = new ArrayList<FormaNormal>();
+		formaNormalBC = new ArrayList<FormaNormal>();
+		nombre = "";
+		superClaves = new ArrayList<Clave>();
+
+	}
+
 }

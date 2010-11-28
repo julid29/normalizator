@@ -30,5 +30,10 @@ public class Clave {
 		this.atributos.add(atributo);
 	}
 	
+	public String toString(){
+		return atributos.toString();
+		
+	}
+	
 	
 }
