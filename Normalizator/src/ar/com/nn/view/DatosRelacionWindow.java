@@ -103,19 +103,19 @@ public class DatosRelacionWindow extends JFrame {
 		contenedor.getContentPane().add(listaCC);
 
 		listaDepFunc = new List();
-		listaDepFunc.setBounds(254, 86, 175, 211);
+		listaDepFunc.setBounds(228, 89, 175, 208);
 		contenedor.getContentPane().add(listaDepFunc);
 
 		listFmin = new List();
-		listFmin.setBounds(481, 89, 140, 227);
+		listFmin.setBounds(446, 89, 175, 208);
 		contenedor.getContentPane().add(listFmin);
 
 		JLabel lblFminTitulo = new JLabel("Fmin");
-		lblFminTitulo.setBounds(481, 69, 61, 16);
+		lblFminTitulo.setBounds(446, 69, 61, 16);
 		contenedor.getContentPane().add(lblFminTitulo);
 		
 		JLabel lblDependenciasFuncionales = new JLabel("Dependencias Funcionales");
-		lblDependenciasFuncionales.setBounds(222, 69, 181, 16);
+		lblDependenciasFuncionales.setBounds(228, 69, 181, 16);
 		contenedor.getContentPane().add(lblDependenciasFuncionales);
 		
 		completarDatos();
