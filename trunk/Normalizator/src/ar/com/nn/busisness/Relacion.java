@@ -278,7 +278,7 @@ public class Relacion {
 		String stringFormaNormal = "";
 
 		if (atributos.size() == 2) {
-			stringFormaNormal = "Forma Normal de Boyce Cott.";
+			stringFormaNormal = "Forma Normal de Boyce Codd.";
 			return stringFormaNormal;
 		}
 		for (DepFuncional depFun : this.depFuncionales) {
@@ -331,7 +331,7 @@ public class Relacion {
 			stringFormaNormal = "3ra Forma Normal.";
 			break;
 		case 4:
-			stringFormaNormal = "Forma Normal de Boyce Cott.";
+			stringFormaNormal = "Forma Normal de Boyce Codd.";
 			break;
 		}
 
