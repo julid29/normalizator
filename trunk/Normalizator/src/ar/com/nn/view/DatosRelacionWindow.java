@@ -57,8 +57,8 @@ public class DatosRelacionWindow extends JFrame {
 		contenedor.getContentPane().setLayout(null);
 		contenedor.getContentPane().setLayout(null);
 
-		JLabel lblRelacionNombre = new JLabel("Relaci—n " + r.getNombre());
-		lblRelacionNombre.setBounds(243, 10, 285, 23);
+		JLabel lblRelacionNombre = new JLabel("Relaci—n " + r.getNombre() + " est‡ en " + r.getFormaNormal());
+		lblRelacionNombre.setBounds(163, 10, 410, 23);
 		contenedor.getContentPane().add(lblRelacionNombre);
 
 		JLabel lblAtributos = new JLabel("R:" + r.getAtributos());

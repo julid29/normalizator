@@ -72,11 +72,14 @@ public class FormasNormalesWindow extends JFrame {
 		contenedor.getContentPane().add(btnSiguiente);
 		btnSiguiente.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
-				NombreRelacionWindow v = NombreRelacionWindow.getInstance();
-				v.clear();
-				v.setVisible(true);
+//				NombreRelacionWindow v = NombreRelacionWindow.getInstance();
+//				v.clear();
+//				v.setVisible(true);
+//				setVisible(false);
+//				Admin.clearWindows();
 				setVisible(false);
-				Admin.clearWindows();
+				String[] args = null;
+				Admin.main(args);
 			}
 		});
 		
