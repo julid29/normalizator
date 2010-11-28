@@ -3,7 +3,6 @@ package ar.com.nn.view;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.List;
-import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
