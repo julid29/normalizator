@@ -3,8 +3,8 @@ package ar.com.nn.busisness;
 import java.util.ArrayList;
 
 public class FormaNormal {
-	private ArrayList<String> atributos = new ArrayList<String>();
-	private ArrayList<DepFuncional> depFuncionales = new ArrayList<DepFuncional>();
+	private ArrayList<String> atributos;
+	private ArrayList<DepFuncional> depFuncionales;
 	
 	//Marca utilizada para eliminar la relacion.
 	private boolean marca = false;
@@ -49,11 +49,17 @@ public class FormaNormal {
 	//Constructores
 	public FormaNormal(ArrayList<String> atributos,
 			ArrayList<DepFuncional> depFuncionales) {
+		atributos = new ArrayList<String>();
+		depFuncionales = new ArrayList<DepFuncional>();
+		
 		this.atributos = atributos;
 		this.depFuncionales = depFuncionales;
 	}
 		
 	public FormaNormal(ArrayList<String> atributos, DepFuncional depFuncionales) {
+		this.atributos = new ArrayList<String>();
+		this.depFuncionales = new ArrayList<DepFuncional>();
+		
 		this.atributos = atributos;
 		this.depFuncionales.add(depFuncionales);
 	}
