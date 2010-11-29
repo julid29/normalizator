@@ -60,8 +60,6 @@ public class FormasNormalesWindow extends JFrame {
 		contenedor.setBounds(100, 100, 650, 400);
 		contenedor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contenedor.getContentPane().setLayout(null);
-		contenedor.getContentPane().setLayout(null);
-		contenedor.getContentPane().setLayout(null);
 		
 
 		fnbc = new ArrayList<FormaNormal>();
@@ -114,20 +112,8 @@ public class FormasNormalesWindow extends JFrame {
 		lblFNBC.setBounds(32, 187, 195, 16);
 		contenedor.getContentPane().add(lblFNBC);
 		
-		JButton btnImprimir = new JButton("Imprimir");
-		btnImprimir.setBounds(185, 330, 117, 29);
-		contenedor.getContentPane().add(btnImprimir);
-		btnImprimir.addMouseListener(new MouseAdapter(){
-			public void mouseClicked(MouseEvent e){
-				ManejadorArchivo m = new ManejadorArchivo();
-				try{
-					m.imprimirArchivo(r);
-				}catch (IOException exc) {}
-			}
-		});
-		
 		JButton btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(342, 330, 117, 29);
+		btnGuardar.setBounds(265, 330, 117, 29);
 		contenedor.getContentPane().add(btnGuardar);
 		btnGuardar.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
