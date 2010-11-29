@@ -354,14 +354,14 @@ public class Relacion {
 	 * Normal.
 	 */
 	public void calcular3FormaNormal() {
-		// // 1) Encontrar Fmin.
-		// if (this.fMin == null)
-		// obtenerFmin();
+		 // 1) Encontrar Fmin.
+		 if (this.fMin == null)
+		 obtenerFmin();
 		/*
 		 * 2) Crear esquemas de relacion Ri, cuyos atributos contengan las
 		 * dependencias funcionales del esquema R
 		 */
-		for (DepFuncional depFun : this.depFuncionales) {
+		for (DepFuncional depFun : this.fMin) {
 			// compongo una lista con los determiantes y los determinados.
 			ArrayList<String> atrs = new ArrayList<String>();
 			atrs.addAll(depFun.getDeterminados());
@@ -430,12 +430,12 @@ public class Relacion {
 		ArrayList<DepFuncional> depPerdidas = new ArrayList<DepFuncional>();
 		FormaNormal principal = new FormaNormal();
 		principal.setAtributos(atributos);
-		principal.setDepFuncionales(depFuncionales);
-		// /*
-		// * 1) Calculo el Fmin.
-		// */
-		// if (fMin == null)
-		// obtenerFmin();
+		 /*
+		 * 1) Calculo el Fmin.
+		 */
+		 if (fMin == null)
+		 obtenerFmin();
+		 principal.setDepFuncionales(fMin);
 		/*
 		 * 2)Mientras existan dependencias funcionales que violen la forma
 		 * normal se proyecta R en R1 y R2
