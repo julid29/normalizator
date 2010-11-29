@@ -81,35 +81,52 @@ public class DepFuncional {
 	 * DETERMINANTES
 	 */
 	public boolean loTenesEnDeterminantes(ArrayList<String> atributos) {
-		for (String a : determinantes){
-			if (!atributos.contains(a))
-				return false;
+		boolean contenido = true; // Variable que determinara si esta el
+									// atributo en los determinantes
+
+		if (atributos.size() != determinantes.size()) {
+			contenido = false;
+		} else {
+			for (String atributo : atributos) {
+				if (!(determinantes.contains(atributo))) {
+					contenido = false;
+					break;
+				}
+			}
 		}
-		return true;
+		return contenido;
 	}
 
 	public boolean determinantesParcial(ArrayList<String> atributos){
-		for (String a : atributos){
-			if (determinantes.contains(a))
-				return true;
-		}
-		return false;
+		if (atributos.containsAll(determinantes))
+			return true;
+		else
+			return false;
 	}
 	
 	public boolean loTenesEnDeterminados(ArrayList<String> atributos) {
-		for (String a : determinados){
-			if (!atributos.contains(a))
-				return false;
+		boolean contenido = true; // Variable que determinara si esta el
+		// atributo en los determinantes
+
+		if (atributos.size() != determinados.size()) {
+		contenido = false;
+		} else {
+			for (String atributo : atributos) {
+				if (!(determinados.contains(atributo))) {
+					contenido = false;
+					break;
+				}
+			}
 		}
-		return true;
+	return contenido;
+
 	}
 	
 	public boolean determinadosParcial(ArrayList<String> atributos){
-		for (String a : atributos){
-			if (determinados.contains(a))
-				return true;
-		}
-		return false;
+		if (atributos.containsAll(determinados))
+			return true;
+		else
+			return false;
 	}
 	
 	public String toString(){
