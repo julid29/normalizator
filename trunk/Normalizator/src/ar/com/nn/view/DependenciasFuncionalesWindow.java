@@ -175,5 +175,9 @@ public class DependenciasFuncionalesWindow extends JFrame {
 		listaDeterminados.removeAll();
 		listaDeterminantes.removeAll();
 	}
+	public void clearDD(){
+		listaDeterminados.removeAll();
+		listaDeterminantes.removeAll();
+	}
 	
 }
