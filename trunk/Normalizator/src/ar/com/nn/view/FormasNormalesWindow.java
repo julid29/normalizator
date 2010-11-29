@@ -3,6 +3,7 @@ package ar.com.nn.view;
 import java.awt.List;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -118,7 +119,10 @@ public class FormasNormalesWindow extends JFrame {
 		contenedor.getContentPane().add(btnImprimir);
 		btnImprimir.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
-//				ESTO TENES QUE TOCAR PARA IMPRIMIR :P
+				ManejadorArchivo m = new ManejadorArchivo();
+				try{
+					m.imprimirArchivo(r);
+				}catch (IOException exc) {}
 			}
 		});
 		
