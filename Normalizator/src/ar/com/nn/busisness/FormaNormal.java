@@ -70,7 +70,10 @@ public class FormaNormal {
 		this.depFuncionales = new ArrayList<DepFuncional>();
 	}
 
-	public FormaNormal() {}
+	public FormaNormal() {
+		atributos = new ArrayList<String>();
+		depFuncionales = new ArrayList<DepFuncional>();
+	}
 
 	public void agregarAtributos(ArrayList<String> atributos) {
 		this.atributos.addAll(atributos);		
