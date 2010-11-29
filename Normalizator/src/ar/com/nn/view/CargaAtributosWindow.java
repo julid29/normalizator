@@ -88,10 +88,9 @@ public class CargaAtributosWindow {
 		btnSiguiente.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				Relacion.getInstance().setAtributos(atributosRelacion);
-				System.out.println(Relacion.getInstance().getAtributos());
 				setVisible(false);
 				DependenciasFuncionalesWindow.getInstance().setVisible(true);
-				DependenciasFuncionalesWindow.getInstance().clear();
+				DependenciasFuncionalesWindow.getInstance().clearDD();
 				DependenciasFuncionalesWindow.getInstance().completarDatos();
 			}
 		});
