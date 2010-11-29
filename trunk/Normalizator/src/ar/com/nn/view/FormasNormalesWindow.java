@@ -25,7 +25,11 @@ public class FormasNormalesWindow extends JFrame {
 	private List listaFNBC;
 	private Relacion r;
 	private JLabel lblTitulo;
-
+	private ArrayList<FormaNormal> fnbc;
+	private ArrayList<DepFuncional>  df;
+	private ArrayList<FormaNormal> fn;
+	private String depfuncionales;
+	
 	private JFrame contenedor;
 	private static FormasNormalesWindow INSTANCE;
 
@@ -58,12 +62,20 @@ public class FormasNormalesWindow extends JFrame {
 		contenedor.getContentPane().setLayout(null);
 		contenedor.getContentPane().setLayout(null);
 		
+
+		fnbc = new ArrayList<FormaNormal>();
+		df = new ArrayList<DepFuncional>();
+		fn = new ArrayList<FormaNormal>();
+		depfuncionales = "";
+		
 		JButton btnAtrs = new JButton("Atr\u00E1s");
 		btnAtrs.setBounds(32, 330, 117, 29);
 		contenedor.getContentPane().add(btnAtrs);
 		btnAtrs.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
 				DatosRelacionWindow.getInstance().setVisible(true);
+				clear();
+				r.removeFormasN();
 				setVisible(false);
 			}
 		});
@@ -126,11 +138,11 @@ public class FormasNormalesWindow extends JFrame {
 		
 		lblTitulo.setText("Formas Normales de " + r.getNombre());
 
-		ArrayList<FormaNormal> fn = r.getFormaNormal3();
+		fn = r.getFormaNormal3();
 		int i = 1;
-		String depfuncionales = "";
+		depfuncionales = "";
 		for (FormaNormal r : fn) {
-			ArrayList<DepFuncional> df = r.getDepFuncionales();
+			df = r.getDepFuncionales();
 			for (DepFuncional d : df) {
 				depfuncionales += d.getDeterminantes().toString() + "->"
 						+ d.getDeterminados() + " ";
@@ -141,7 +153,7 @@ public class FormasNormalesWindow extends JFrame {
 			i++;
 		}
 
-		ArrayList<FormaNormal> fnbc = r.getFormaNormalBC();
+		fnbc = r.getFormaNormalBC();
 		i = 1;
 		depfuncionales = "";
 		for (FormaNormal rbc : fnbc) {
@@ -168,5 +180,9 @@ public class FormasNormalesWindow extends JFrame {
 		lblTitulo.setText("");
 		lista3FN.removeAll();
 		listaFNBC.removeAll();
+		df.clear();
+		depfuncionales = "";
+		fn.clear();
+		fnbc.clear();
 	}
 }

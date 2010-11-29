@@ -146,8 +146,6 @@ public class DependenciasFuncionalesWindow extends JFrame {
 		btnSiguiente.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				r.setDepFuncionales(arrayDF);
-				System.out.println("array" + arrayDF.toString());
-				System.out.println("dep fun" + r.getDepFuncionales().toString());
 				DatosRelacionWindow.getInstance().clear();
 				DatosRelacionWindow.getInstance().setVisible(true);
 				DatosRelacionWindow.getInstance().completarDatos();
