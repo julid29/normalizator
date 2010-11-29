@@ -544,7 +544,18 @@ public class Relacion {
 		formaNormalBC = new ArrayList<FormaNormal>();
 		nombre = "";
 		superClaves = new ArrayList<Clave>();
+	}
+	
+	public void removeCalculos(){
+		superClaves.clear();
+		clavesCandidatas.clear();
+		fMin.clear();
+	}
 
+	public void removeFormasN() {
+		formaNormal3.clear();
+		formaNormalBC.clear();
+		
 	}
 
 }
