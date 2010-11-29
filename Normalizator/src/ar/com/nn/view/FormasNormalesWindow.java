@@ -24,6 +24,7 @@ public class FormasNormalesWindow extends JFrame {
 	private List lista3FN;
 	private List listaFNBC;
 	private Relacion r;
+	private JLabel lblTitulo;
 
 	private JFrame contenedor;
 	private static FormasNormalesWindow INSTANCE;
@@ -72,18 +73,15 @@ public class FormasNormalesWindow extends JFrame {
 		contenedor.getContentPane().add(btnSiguiente);
 		btnSiguiente.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
-//				NombreRelacionWindow v = NombreRelacionWindow.getInstance();
-//				v.clear();
-//				v.setVisible(true);
-//				setVisible(false);
-//				Admin.clearWindows();
+				NombreRelacionWindow v = NombreRelacionWindow.getInstance();
+				v.clear();
+				v.setVisible(true);
 				setVisible(false);
-				String[] args = null;
-				Admin.main(args);
+				Admin.clearWindows();
 			}
 		});
 		
-		JLabel lblTitulo = new JLabel("Formas Normales de " + r.getNombre());
+		lblTitulo = new JLabel("");
 		lblTitulo.setBounds(223, 17, 352, 21);
 		contenedor.getContentPane().add(lblTitulo);
 		
@@ -122,38 +120,41 @@ public class FormasNormalesWindow extends JFrame {
 			}
 		});
 		
-		completarDatos();
 	}
 
-	private void completarDatos() {
+	public void completarDatos() {
+		
+		lblTitulo.setText("Formas Normales de " + r.getNombre());
+
 		ArrayList<FormaNormal> fn = r.getFormaNormal3();
 		int i = 1;
-		String depfuncoinales = "";
+		String depfuncionales = "";
 		for (FormaNormal r : fn) {
 			ArrayList<DepFuncional> df = r.getDepFuncionales();
 			for (DepFuncional d : df) {
-				depfuncoinales += d.getDeterminantes().toString() + "->"
+				depfuncionales += d.getDeterminantes().toString() + "->"
 						+ d.getDeterminados() + " ";
 			}
 			lista3FN.add("R" + i + ": " + r.getAtributos().toString() + " DF: "
-					+ depfuncoinales);
+					+ depfuncionales);
+			depfuncionales = "";
 			i++;
 		}
 
-//		ArrayList<FormaNormal> fnbc = r.getFormaNormalBC();
-//		i = 1;
-//		depfuncoinales = "";
-//		for (FormaNormal r : fnbc) {
-//			ArrayList<DepFuncional> df = r.getDepFuncionales();
-//			for (DepFuncional d : df) {
-//				depfuncoinales += d.getDeterminantes().toString() + "->"
-//						+ d.getDeterminados() + " ";
-//			}
-//			listaFNBC.add("R" + i + ": " + r.getAtributos().toString()
-//					+ " DF: " + depfuncoinales);
-//			i++;
-//		}
-
+		ArrayList<FormaNormal> fnbc = r.getFormaNormalBC();
+		i = 1;
+		depfuncionales = "";
+		for (FormaNormal rbc : fnbc) {
+			ArrayList<DepFuncional> df = rbc.getDepFuncionales();
+			for (DepFuncional d : df) {
+				depfuncionales += d.getDeterminantes().toString() + "->"
+						+ d.getDeterminados() + " ";
+			}
+			listaFNBC.add("R" + i + ": " + rbc.getAtributos().toString()
+					+ " DF: " + depfuncionales);
+			depfuncionales = "";
+			i++;
+		}
 	}
 
 	public void setVisible(boolean b) {
@@ -164,6 +165,7 @@ public class FormasNormalesWindow extends JFrame {
 	}
 
 	public void clear() {
+		lblTitulo.setText("");
 		lista3FN.removeAll();
 		listaFNBC.removeAll();
 	}
