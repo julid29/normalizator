@@ -7,10 +7,9 @@ import ar.com.nn.view.FormasNormalesWindow;
 import ar.com.nn.view.NombreRelacionWindow;
 import ar.com.nn.view.VentanaPrincipal;
 
-
 public class Admin {
 
-	public static void clearWindows(){
+	public static void clearWindows() {
 		Relacion.getInstance().clear();
 		CargaAtributosWindow.getInstance().clear();
 		DatosRelacionWindow.getInstance().clear();
@@ -18,10 +17,11 @@ public class Admin {
 		FormasNormalesWindow.getInstance().clear();
 		NombreRelacionWindow.getInstance().clear();
 	}
+
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		VentanaPrincipal.getInstance();
 	}
 }
