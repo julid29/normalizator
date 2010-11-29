@@ -79,7 +79,8 @@ public class Relacion {
 	}
 
 	public ArrayList<DepFuncional> getfMin() {
-		obtenerFmin();
+		if (fMin ==null)
+			obtenerFmin();
 		return fMin;
 	}
 
@@ -98,7 +99,8 @@ public class Relacion {
 	}
 
 	public ArrayList<FormaNormal> getFormaNormal3() {
-		calcular3FormaNormal();
+		if (this.formaNormal3 == null)
+			calcular3FormaNormal();
 		return formaNormal3;
 	}
 
@@ -107,7 +109,8 @@ public class Relacion {
 	}
 
 	public ArrayList<FormaNormal> getFormaNormalBC() {
-		calcularFNBC();
+		if (this.formaNormalBC == null)
+			calcularFNBC();
 		return formaNormalBC;
 	}
 
@@ -161,7 +164,7 @@ public class Relacion {
 				 * obtenida hasta el momento, se encuentre en sus determinantes.
 				 */
 				if (!depFun.getMarca()) {
-					if (depFun.loTenesEnDeterminantes(arrayAuxiliar)) {
+					if (depFun.determinantesParcial(arrayAuxiliar)) {
 						// Adhiere todos los determinados de la dependecia
 						// funcional.
 						for (String determinado : depFun.getDeterminados()) {
@@ -192,7 +195,8 @@ public class Relacion {
 					simplificarADerecha(
 							dependenciaFuncional.getDeterminantes(),
 							dependenciaFuncional.getDeterminados());
-				}
+				} else
+					fMin.add(dependenciaFuncional);
 			}
 		} catch (Exception e) {
 			System.out.println("Excepcion: " + e.getMessage());
@@ -241,8 +245,8 @@ public class Relacion {
 
 		for (DepFuncional dependenciaATratar : this.fMin) {
 			dependenciaATratar.setMarca(true);
-			ArrayList<String> clausura = calcularClausura(
-					dependenciaATratar.getDeterminantes(), 1);
+			ArrayList<String> clausura = calcularClausura(dependenciaATratar
+					.getDeterminantes(), 1);
 			// Si NO TODOS los determinados estan en la clausura. Quito la
 			// marca.
 			if (!clausura.containsAll(dependenciaATratar.getDeterminados()))
@@ -344,14 +348,14 @@ public class Relacion {
 	 * Normal.
 	 */
 	public void calcular3FormaNormal() {
-		// 1) Encontrar Fmin.
-		if (this.fMin == null)
-			obtenerFmin();
+//		// 1) Encontrar Fmin.
+//		if (this.fMin == null)
+//			obtenerFmin();
 		/*
 		 * 2) Crear esquemas de relacion Ri, cuyos atributos contengan las
-		 * dependencias funcionales del Fmin del esquema R
+		 * dependencias funcionales del esquema R
 		 */
-		for (DepFuncional depFun : this.fMin) {
+		for (DepFuncional depFun : this.depFuncionales) {
 			// compongo una lista con los determiantes y los determinados.
 			ArrayList<String> atrs = new ArrayList<String>();
 			atrs.addAll(depFun.getDeterminados());
@@ -377,6 +381,7 @@ public class Relacion {
 			}
 			if (crear) {
 				FormaNormal formaNormal = new FormaNormal(clave.getAtributos());
+				formaNormal.setMarca(true);
 				formaNormal3.add(formaNormal);
 			}
 		}
@@ -385,83 +390,103 @@ public class Relacion {
 	}
 
 	private void verificarUniones() {
+		ArrayList<FormaNormal> eliminar = new ArrayList<FormaNormal>();
 		Iterator<FormaNormal> iterador = this.formaNormal3.iterator();
-		// int i = 0;
-		for (FormaNormal forma : this.formaNormal3) {
-			while (iterador.hasNext()) {
-				FormaNormal formaATratar = iterador.next();
-				if (forma != formaATratar) {
-					if (forma.getDeterminantes().size() == formaATratar
-							.getDeterminantes().size()
-							&& formaATratar.getDeterminantes().containsAll(
-									forma.getDeterminantes())) {
-						forma.agregarAtributos(formaATratar.getDeterminados());
-						forma.agregarDepFuncionales(formaATratar
-								.getDepFuncionales());
-						iterador.remove();
+		while (iterador.hasNext()) {
+			FormaNormal formaATratar = iterador.next();
+			if (eliminar == null || !eliminar.contains(formaATratar)) {
+				for (FormaNormal forma : this.formaNormal3) {
+					if (forma != formaATratar) {
+						try {
+							if (formaATratar.getDeterminantes().size() == forma
+									.getDeterminantes().size()
+									&& forma.getDeterminantes().containsAll(
+											formaATratar.getDeterminantes())) {
+								formaATratar.agregarAtributos(forma
+										.getDeterminados());
+								formaATratar.agregarDepFuncionales(forma
+										.getDepFuncionales());
+								eliminar.add(forma);
+							}
+						} catch (IndexOutOfBoundsException exception) {
+						}
 					}
 				}
 			}
+			else
+				iterador.remove();
 		}
 	}
 
 	public void calcularFNBC() {
 		ArrayList<DepFuncional> depPerdidas = new ArrayList<DepFuncional>();
-		FormaNormal principal = new FormaNormal(this.atributos,
-				this.depFuncionales);
+		FormaNormal principal = new FormaNormal();
+		principal.setAtributos(atributos);
+		principal.setDepFuncionales(depFuncionales);
+//		/*
+//		 * 1) Calculo el Fmin.
+//		 */
+//		if (fMin == null)
+//			obtenerFmin();
 		/*
-		 * 1)Mientras existan dependencias funcionales que violen la forma
+		 * 2)Mientras existan dependencias funcionales que violen la forma
 		 * normal se proyecta R en R1 y R2
 		 */
-
-		int i = 1;// Esta variable se usa para recorrer las dependencias
-		// funcionales dentro del foreach (omitiendo la primera).
-
-		for (DepFuncional depFun : principal.getDepFuncionales()) {
-			// compongo una lista con los determiantes y los determinados.
-			ArrayList<String> atrs = new ArrayList<String>();
-			// Creo la forma normal y se lo agrego a la lista.
-			if (!depFun.getMarca()) {
-				atrs.addAll(depFun.getDeterminados());
-				atrs.addAll(depFun.getDeterminantes());
-				// Creo la forma normal y se lo agrego a la FNBC.
-				FormaNormal formaNormal = new FormaNormal(atrs, depFun);
-				formaNormalBC.add(formaNormal);
-				int aux = i;
-				while (aux < principal.getDepFuncionales().size()) {
-					/*
-					 * Evaluo si los atributos del subesquema creado, lo
-					 * contiene alguna dependencia funcional tanto en sus
-					 * determinantes o sus determinados. En caso de ser
-					 * afirmativo, esta dependencia se perdera, entonces se
-					 * marca dicha dependencia y se la agrega a la lista de
-					 * dependencias perdidas.
-					 */
-					if (!principal.getDepFuncionales().get(i).getMarca()) {
-						if (principal
-								.getDepFuncionales()
-								.get(i)
-								.loTenesEnDeterminados(
-										formaNormal.getAtributos())) {
-							principal.getDepFuncionales().get(i).setMarca(true);
-							depPerdidas.add(principal.getDepFuncionales()
-									.get(i));
-						} else if (principal
-								.getDepFuncionales()
-								.get(i)
-								.loTenesEnDeterminados(
-										formaNormal.getAtributos())) {
-							principal.getDepFuncionales().get(i).setMarca(true);
-							depPerdidas.add(principal.getDepFuncionales()
-									.get(i));
-						}
-						aux++;
-					}
-				}
-				i++;
-				atrs.clear();
-			}
+		Iterator<DepFuncional> iterador = principal.getDepFuncionales().iterator();
+		while (iterador.hasNext()){
+			DepFuncional dependencia = iterador.next();
+			ArrayList<String>atributos = new ArrayList<String>();
+			atributos.addAll(dependencia.getDeterminantes());
+			atributos.addAll(dependencia.getDeterminados());
+			FormaNormal forma = new FormaNormal(atributos,dependencia);
+			formaNormalBC.add(forma);
 		}
+		
+		
+//		int i = 1;// Esta variable se usa para recorrer las dependencias
+//		// funcionales dentro del foreach (omitiendo la primera).
+//
+//		for (DepFuncional depFun : principal.getDepFuncionales()) {
+//			// compongo una lista con los determiantes y los determinados.
+//			ArrayList<String> atrs = new ArrayList<String>();
+//			// Creo la forma normal y se lo agrego a la lista.
+//			if (!depFun.getMarca()) {
+//				atrs.addAll(depFun.getDeterminados());
+//				atrs.addAll(depFun.getDeterminantes());
+//				// Creo la forma normal y se lo agrego a la FNBC.
+//				FormaNormal formaNormal = new FormaNormal(atrs, depFun);
+//				formaNormalBC.add(formaNormal);
+//				int aux = i;
+//				while (aux < principal.getDepFuncionales().size()) {
+//					/*
+//					 * Evaluo si los atributos del subesquema creado, lo
+//					 * contiene alguna dependencia funcional tanto en sus
+//					 * determinantes o sus determinados. En caso de ser
+//					 * afirmativo, esta dependencia se perdera, entonces se
+//					 * marca dicha dependencia y se la agrega a la lista de
+//					 * dependencias perdidas.
+//					 */
+//					if (!principal.getDepFuncionales().get(i).getMarca()) {
+//						if (principal.getDepFuncionales().get(i)
+//								.loTenesEnDeterminados(
+//										formaNormal.getAtributos())) {
+//							principal.getDepFuncionales().get(i).setMarca(true);
+//							depPerdidas.add(principal.getDepFuncionales()
+//									.get(i));
+//						} else if (principal.getDepFuncionales().get(i)
+//								.loTenesEnDeterminados(
+//										formaNormal.getAtributos())) {
+//							principal.getDepFuncionales().get(i).setMarca(true);
+//							depPerdidas.add(principal.getDepFuncionales()
+//									.get(i));
+//						}
+//						aux++;
+//					}
+//				}
+//				i++;
+//				atrs.clear();
+//			}
+//		}
 	}
 
 	public void calcularClaves() {
@@ -503,12 +528,12 @@ public class Relacion {
 			}
 			i++;
 		}
-		Iterator<Clave> claves = this.superClaves.iterator();
-		while (claves.hasNext()) {
-			Clave aux = claves.next();
+		Iterator<Clave> clave = this.superClaves.iterator();
+		while (clave.hasNext()) {
+			Clave aux = clave.next();
 			if (!(calcularClausura(aux.getAtributos(), 0).size() == this.atributos
 					.size()))
-				claves.remove();
+				clave.remove();
 		}
 	}
 
