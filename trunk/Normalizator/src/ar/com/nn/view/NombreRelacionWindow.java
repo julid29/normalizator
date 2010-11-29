@@ -24,7 +24,7 @@ public class NombreRelacionWindow {
 	private static NombreRelacionWindow INSTANCE = null;
 
 	// creador sincronizado para protegerse de posibles problemas multi-hilo
-	// otra prueba para evitar instanciaci—n mœltiple
+	// otra prueba para evitar instanciaciï¿½n mï¿½ltiple
 	private synchronized static void createInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new NombreRelacionWindow();
@@ -105,6 +105,8 @@ public class NombreRelacionWindow {
 		panelAbsoluto.add(btnSiguiente);
 		btnSiguiente.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
+				Relacion rel = Relacion.getInstance();
+				rel.setNombre(txtboxNombre.getText());
 				CargaAtributosWindow.getInstance().setVisible(true);
 				setVisible(false);
 			}

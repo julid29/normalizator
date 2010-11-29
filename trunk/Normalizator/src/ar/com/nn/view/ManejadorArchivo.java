@@ -87,51 +87,33 @@ public class ManejadorArchivo extends JFrame {
 		ps.println("3ra Forma Normal:");
 		ArrayList<FormaNormal>fn = r.getFormaNormal3();
 		int i = 1;
-		String depfuncionales = "";
-		for (FormaNormal forma : fn) {
-			ArrayList<DepFuncional> df = forma.getDepFuncionales();
-			for (DepFuncional d : df) {
-				depfuncionales += (d.toString()+" ");
-			}
-			ps.println("R" + i + ": " + forma.getAtributos().toString() + " DF: "
-					+ depfuncionales);
-			depfuncionales = "";
+		for (FormaNormal forma : fn){
+			ps.println("R"+i+": "+forma.getAtributos().toString());
+			if (forma.getDepFuncionales() != null)
+				for(DepFuncional d: forma.getDepFuncionales()){
+					ps.println(d.toString());
+				}
+			else
+				ps.println(" ");
 			i++;
 		}
-		ps.println("Forma Normal de Boyce Codd:");
-		ArrayList<FormaNormal> fnbc = r.getFormaNormalBC();
-		i = 1;
-		depfuncionales = "";
-		for (FormaNormal rbc : fnbc) {
-			ArrayList<DepFuncional> df = rbc.getDepFuncionales();
-			for (DepFuncional d : df) {
-				depfuncionales += (d.toString()+" ");
-			}
-			ps.println("R" + i + ": " + rbc.getAtributos().toString()
-					+ " DF: " + depfuncionales);
-			depfuncionales = "";
-			i++;
-		}
+		fn.clear();
 		
+		ps.println("Forma Normal de Boyce Codd:");
+		fn = r.getFormaNormalBC();
+		i = 1;
+		for (FormaNormal forma : fn){
+			ps.println("R"+i+": "+forma.getAtributos().toString());
+			if (forma.getDepFuncionales() != null)
+				for(DepFuncional d: forma.getDepFuncionales()){
+					ps.println(d.toString());
+				}
+			else
+				ps.println(" ");
+			i++;
+		}
 		
 		ps.close();
 	}
 
-	public void imprimirArchivo(Relacion r) throws IOException {
-		if (archivo == null)
-			guardarArchivo(r);
-		PrinterJob printJob = PrinterJob.getPrinterJob();
-		printJob.setPrintable((Printable) archivo);
-
-		PageFormat pf = printJob.pageDialog(printJob.defaultPage());
-
-		if (printJob.printDialog()) {
-			try {
-				printJob.print();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-	}
 }
