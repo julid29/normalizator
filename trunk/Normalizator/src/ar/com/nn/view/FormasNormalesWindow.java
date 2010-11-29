@@ -117,7 +117,8 @@ public class FormasNormalesWindow extends JFrame {
 		contenedor.getContentPane().add(btnGuardar);
 		btnGuardar.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
-//				ESTO TENES QUE TOCAR PARA GUARDAR :P
+				ManejadorArchivo m = new ManejadorArchivo();
+				m.guardarArchivo(r);
 			}
 		});
 		
@@ -139,19 +140,19 @@ public class FormasNormalesWindow extends JFrame {
 			i++;
 		}
 
-		ArrayList<FormaNormal> fnbc = r.getFormaNormalBC();
-		i = 1;
-		depfuncoinales = "";
-		for (FormaNormal r : fnbc) {
-			ArrayList<DepFuncional> df = r.getDepFuncionales();
-			for (DepFuncional d : df) {
-				depfuncoinales += d.getDeterminantes().toString() + "->"
-						+ d.getDeterminados() + " ";
-			}
-			listaFNBC.add("R" + i + ": " + r.getAtributos().toString()
-					+ " DF: " + depfuncoinales);
-			i++;
-		}
+//		ArrayList<FormaNormal> fnbc = r.getFormaNormalBC();
+//		i = 1;
+//		depfuncoinales = "";
+//		for (FormaNormal r : fnbc) {
+//			ArrayList<DepFuncional> df = r.getDepFuncionales();
+//			for (DepFuncional d : df) {
+//				depfuncoinales += d.getDeterminantes().toString() + "->"
+//						+ d.getDeterminados() + " ";
+//			}
+//			listaFNBC.add("R" + i + ": " + r.getAtributos().toString()
+//					+ " DF: " + depfuncoinales);
+//			i++;
+//		}
 
 	}
 
