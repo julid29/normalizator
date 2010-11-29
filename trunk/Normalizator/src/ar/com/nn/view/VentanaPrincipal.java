@@ -58,14 +58,12 @@ public class VentanaPrincipal {
 		txtTitulo.setBounds(248, 51, 140, 30);
 		txtTitulo.setPreferredSize(new Dimension(130, 80));
 		txtTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		txtTitulo.setFont(new Font("Arial", txtTitulo.getFont().getStyle() | Font.BOLD, 21));
 		
 		JLabel txtIntro = new JLabel("Normaliz\u00E1 y calcul\u00E1 las distintas claves de tus relaciones");
 		txtIntro.setLocation(54, 136);
 		txtIntro.setPreferredSize(new Dimension(600, 170));
 		txtIntro.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		txtIntro.setHorizontalAlignment(SwingConstants.CENTER);
-		txtIntro.setFont(new Font("Arial", txtIntro.getFont().getStyle(), 15));
 		txtIntro.setSize(530, 66);
 		
 		JButton btnComenzar = new JButton("Comenzar");

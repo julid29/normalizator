@@ -19,7 +19,9 @@ public class DatosRelacionWindow extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = -6070788625848135521L;
-
+	
+	private JLabel lblAtributos;
+	private JLabel lblRelacionNombre;
 	private JFrame contenedor;
 	private Relacion r;
 	private List listaSC;
@@ -57,11 +59,11 @@ public class DatosRelacionWindow extends JFrame {
 		contenedor.getContentPane().setLayout(null);
 		contenedor.getContentPane().setLayout(null);
 
-		JLabel lblRelacionNombre = new JLabel("Relaci—n " + r.getNombre() + " est‡ en " + r.getFormaNormal());
-		lblRelacionNombre.setBounds(163, 10, 410, 23);
+		lblRelacionNombre = new JLabel("");
+		lblRelacionNombre.setBounds(177, 10, 410, 23);
 		contenedor.getContentPane().add(lblRelacionNombre);
 
-		JLabel lblAtributos = new JLabel("R:" + r.getAtributos());
+		lblAtributos = new JLabel("");
 		lblAtributos.setBounds(34, 45, 587, 23);
 		contenedor.getContentPane().add(lblAtributos);
 
@@ -71,6 +73,8 @@ public class DatosRelacionWindow extends JFrame {
 		btnAtras.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
 				DependenciasFuncionalesWindow.getInstance().setVisible(true);
+				r.removeCalculos();
+				clear();
 				setVisible(false);
 			}
 		});
@@ -81,6 +85,8 @@ public class DatosRelacionWindow extends JFrame {
 		btnSiguiente.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
 				FormasNormalesWindow.getInstance().setVisible(true);
+				FormasNormalesWindow.getInstance().clear();
+				FormasNormalesWindow.getInstance().completarDatos();
 				setVisible(false);
 				
 			}
@@ -117,18 +123,19 @@ public class DatosRelacionWindow extends JFrame {
 		JLabel lblDependenciasFuncionales = new JLabel("Dependencias Funcionales");
 		lblDependenciasFuncionales.setBounds(228, 69, 181, 16);
 		contenedor.getContentPane().add(lblDependenciasFuncionales);
-		
-		completarDatos();
-	}
+		}
 
-	private void completarDatos() {
-//		Agregarlo a la clase Relacion
+	public void completarDatos() {
+		
 		r.calcularClaves();
+		lblRelacionNombre.setText("Relaci—n " + r.getNombre() + " est‡ en " + r.getFormaNormal());
+		lblAtributos.setText("R:" + r.getAtributos());
 		
 //		Cargo SC
 		ArrayList<Clave> sc = r.getSuperClaves();
 		for (Clave c : sc){
 			listaSC.add(c.toString());
+			System.out.println("sc:" + c.toString());
 		}
 		
 //		Cargo CC
@@ -139,14 +146,14 @@ public class DatosRelacionWindow extends JFrame {
 		
 //		Cargo Fmin
 		ArrayList<DepFuncional> fmin = r.getfMin();
-		ArrayList<String> de, doo;
+		ArrayList<String> de = new ArrayList<String>(), doo = new ArrayList<String>();
 		for (DepFuncional df : fmin){
 			de = df.getDeterminantes();
 			doo = df.getDeterminados();
 			listFmin.add(de.toString() + "->" + doo.toString());
 		}
 		
-//		Cargo Def Funcionales
+//		Cargo Dep Funcionales
 		ArrayList<DepFuncional>dfs = r.getDepFuncionales();
 		for (DepFuncional df : dfs){
 			de = df.getDeterminantes();
@@ -154,8 +161,9 @@ public class DatosRelacionWindow extends JFrame {
 			listaDepFunc.add(de.toString() + "->" + doo.toString());
 		}
 		
+		
 	}
-
+	
 	public void setVisible(boolean b) {
 		if (b == true)
 			contenedor.setVisible(true);
@@ -168,6 +176,8 @@ public class DatosRelacionWindow extends JFrame {
 		listaDepFunc.removeAll();
 		listaSC.removeAll();
 		listFmin.removeAll();
+		lblAtributos.setText("");
+		lblRelacionNombre.setText("");
 		
 	}
 }

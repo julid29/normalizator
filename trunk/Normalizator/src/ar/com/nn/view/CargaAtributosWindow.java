@@ -1,7 +1,6 @@
 package ar.com.nn.view;
 
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.List;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -65,13 +64,10 @@ public class CargaAtributosWindow {
 		JLabel lblCargaLosAtributos = new JLabel(
 				"Cargue los atributos de la relaci\u00F3n");
 		lblCargaLosAtributos.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCargaLosAtributos.setFont(new Font("Arial", lblCargaLosAtributos
-				.getFont().getStyle(), 18));
 		lblCargaLosAtributos.setBounds(145, 11, 324, 46);
 		contenedor.getContentPane().add(lblCargaLosAtributos);
 
 		JButton btnAtras = new JButton("Atr\u00E1s");
-		btnAtras.setFont(new Font("Arial", Font.PLAIN, 13));
 		contenedor.getContentPane().add(btnAtras);
 		btnAtras.setPreferredSize(new Dimension(110, 40));
 		btnAtras.setBounds(72, 325, 110, 29);
@@ -95,6 +91,8 @@ public class CargaAtributosWindow {
 				System.out.println(Relacion.getInstance().getAtributos());
 				setVisible(false);
 				DependenciasFuncionalesWindow.getInstance().setVisible(true);
+				DependenciasFuncionalesWindow.getInstance().clear();
+				DependenciasFuncionalesWindow.getInstance().completarDatos();
 			}
 		});
 		txtfieldCargarAtributos = new JTextField();
@@ -123,11 +121,8 @@ public class CargaAtributosWindow {
 		});
 
 		JButton btnCargar = new JButton("Cargar");
-		btnCargar
-				.setFont(new Font("Arial", btnCargar.getFont().getStyle(), 14));
 		btnCargar.setBounds(431, 67, 95, 37);
 		btnCargar.addMouseListener(new MouseAdapter() {
-
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				atributo = txtfieldCargarAtributos.getText();
@@ -139,7 +134,6 @@ public class CargaAtributosWindow {
 		contenedor.getContentPane().add(btnCargar);
 
 		listaAtributos = new List();
-		listaAtributos.setFont(new Font("Arial", Font.PLAIN, 12));
 		listaAtributos.setBounds(82, 115, 477, 159);
 		contenedor.getContentPane().add(listaAtributos);
 

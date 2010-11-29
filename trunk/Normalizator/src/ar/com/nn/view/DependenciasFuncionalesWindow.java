@@ -2,7 +2,6 @@ package ar.com.nn.view;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.List;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -86,8 +85,8 @@ public class DependenciasFuncionalesWindow extends JFrame {
 		listaDepFunc = new List();
 		contenedor.getContentPane().add(listaDepFunc);
 		listaDepFunc.setBounds(383, 58, 240, 214);
-
-		JButton btnArmarDF = new JButton(">>");
+		
+		JButton btnArmarDF = new JButton(">");
 		contenedor.getContentPane().add(btnArmarDF);
 		btnArmarDF.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		btnArmarDF.setBounds(343, 148, 34, 40);
@@ -110,12 +109,11 @@ public class DependenciasFuncionalesWindow extends JFrame {
 		});
 
 		listaDeterminados = new List();
-		contenedor.getContentPane().add(listaDeterminados);
 		listaDeterminados.setMultipleMode(true);
 		listaDeterminados.setBounds(192, 58, 145, 243);
+		contenedor.getContentPane().add(listaDeterminados);
 
 		JButton btnAtras = new JButton("Atr\u00E1s");
-		btnAtras.setFont(new Font("Arial", Font.PLAIN, 13));
 		contenedor.getContentPane().add(btnAtras);
 		btnAtras.setPreferredSize(new Dimension(110, 40));
 		btnAtras.setBounds(33, 324, 110, 29);
@@ -148,16 +146,23 @@ public class DependenciasFuncionalesWindow extends JFrame {
 		btnSiguiente.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				r.setDepFuncionales(arrayDF);
-				setVisible(false);
+				System.out.println("array" + arrayDF.toString());
+				System.out.println("dep fun" + r.getDepFuncionales().toString());
+				DatosRelacionWindow.getInstance().clear();
 				DatosRelacionWindow.getInstance().setVisible(true);
+				DatosRelacionWindow.getInstance().completarDatos();
+				setVisible(false);
 			}
 		});
 
+	}
+	
+	public void completarDatos(){
 		for (String element : Relacion.getInstance().getAtributos()) {
 			listaDeterminantes.add(element);
 			listaDeterminados.add(element);
-
 		}
+		
 	}
 
 	public void setVisible(boolean b) {
@@ -171,6 +176,6 @@ public class DependenciasFuncionalesWindow extends JFrame {
 		listaDepFunc.removeAll();
 		listaDeterminados.removeAll();
 		listaDeterminantes.removeAll();
-		arrayDF.clear();
 	}
+	
 }

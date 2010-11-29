@@ -2,7 +2,6 @@ package ar.com.nn.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -66,15 +65,11 @@ public class NombreRelacionWindow {
 		lblIngreseNombre.setBounds(147, 56, 350, 35);
 		panelAbsoluto.add(lblIngreseNombre);
 		lblIngreseNombre.setPreferredSize(new Dimension(350, 35));
-		lblIngreseNombre.setFont(new Font("Arial", lblIngreseNombre.getFont()
-				.getStyle() | Font.BOLD, 22));
 		lblIngreseNombre.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblIngreseNombre.setHorizontalAlignment(SwingConstants.CENTER);
 
 		txtboxNombre = new JTextField();
 		txtboxNombre.setLocation(76, 170);
-		txtboxNombre.setFont(new Font("Arial", txtboxNombre.getFont()
-				.getStyle(), 18));
 		txtboxNombre.setMinimumSize(new Dimension(500, 20));
 		txtboxNombre.setPreferredSize(new Dimension(500, 35));
 		txtboxNombre.setSize(new Dimension(496, 35));
@@ -94,43 +89,26 @@ public class NombreRelacionWindow {
 			}
 		});
 		panelAbsoluto.add(txtboxNombre);
-
-		JButton btnAtras = new JButton("Atras");
-		btnAtras.setFont(new Font("Arial", btnAtras.getFont().getStyle(), 14));
-		btnAtras.setBounds(141, 313, 110, 40);
-		btnAtras.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				contenedor.setVisible(false);
-				VentanaPrincipal ventanaPrincipalWin = VentanaPrincipal
-						.getInstance();
-				ventanaPrincipalWin.setVisible(true);
-			}
-		});
-
-		panelAbsoluto.add(btnAtras);
-		btnAtras.setPreferredSize(new Dimension(110, 40));
-
-		JButton btnSiguiente = new JButton("Siguiente");
-		btnSiguiente.setFont(new Font("Arial", btnSiguiente.getFont()
-				.getStyle(), 14));
-		btnSiguiente.setBounds(387, 313, 110, 40);
-
-		// Boton Siguiente
-		btnSiguiente.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				Relacion rel = Relacion.getInstance();
-				rel.setNombre(txtboxNombre.getText());
+		
+		JButton btnAtrs = new JButton("Atr\u00E1s");
+		btnAtrs.setBounds(76, 319, 117, 29);
+		panelAbsoluto.add(btnAtrs);
+		btnAtrs.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				VentanaPrincipal.getInstance().setVisible(true);
 				setVisible(false);
-				CargaAtributosWindow cargaWin = CargaAtributosWindow
-						.getInstance();
-				cargaWin.setVisible(true);
 			}
 		});
-
+		
+		JButton btnSiguiente = new JButton("Siguiente");
+		btnSiguiente.setBounds(455, 319, 117, 29);
 		panelAbsoluto.add(btnSiguiente);
-		btnSiguiente.setPreferredSize(new Dimension(110, 40));
+		btnSiguiente.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				CargaAtributosWindow.getInstance().setVisible(true);
+				setVisible(false);
+			}
+		});
 	}
 
 	public void setVisible(boolean b) {
@@ -143,5 +121,4 @@ public class NombreRelacionWindow {
 	public void clear() {
 		txtboxNombre.setText("");
 	}
-
 }
