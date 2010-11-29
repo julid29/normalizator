@@ -111,11 +111,13 @@ public class CargaAtributosWindow {
 		txtfieldCargarAtributos.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				int key = e.getKeyCode();
-				if (key == KeyEvent.VK_ENTER) {
-					atributo = txtfieldCargarAtributos.getText();
-					listaAtributos.add(atributo);
-					atributosRelacion.add(atributo);
-					txtfieldCargarAtributos.setText("");
+				if (!txtfieldCargarAtributos.getText().isEmpty()) {
+					if (key == KeyEvent.VK_ENTER) {
+						atributo = txtfieldCargarAtributos.getText();
+						listaAtributos.add(atributo);
+						atributosRelacion.add(atributo);
+						txtfieldCargarAtributos.setText("");
+					}
 				}
 			}
 		});
@@ -125,9 +127,11 @@ public class CargaAtributosWindow {
 		btnCargar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				atributo = txtfieldCargarAtributos.getText();
-				listaAtributos.add(atributo);
-				atributosRelacion.add(atributo);
+				if (!txtfieldCargarAtributos.getText().isEmpty()) {
+					atributo = txtfieldCargarAtributos.getText();
+					listaAtributos.add(atributo);
+					atributosRelacion.add(atributo);
+				}
 
 			}
 		});

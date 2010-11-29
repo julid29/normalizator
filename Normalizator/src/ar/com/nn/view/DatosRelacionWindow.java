@@ -135,7 +135,6 @@ public class DatosRelacionWindow extends JFrame {
 		ArrayList<Clave> sc = r.getSuperClaves();
 		for (Clave c : sc){
 			listaSC.add(c.toString());
-			System.out.println("sc:" + c.toString());
 		}
 		
 //		Cargo CC
