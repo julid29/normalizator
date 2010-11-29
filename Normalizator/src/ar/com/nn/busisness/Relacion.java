@@ -79,8 +79,7 @@ public class Relacion {
 	}
 
 	public ArrayList<DepFuncional> getfMin() {
-		if (fMin ==null)
-			obtenerFmin();
+		obtenerFmin();
 		return fMin;
 	}
 
@@ -99,8 +98,7 @@ public class Relacion {
 	}
 
 	public ArrayList<FormaNormal> getFormaNormal3() {
-		if (this.formaNormal3 == null)
-			calcular3FormaNormal();
+		calcular3FormaNormal();
 		return formaNormal3;
 	}
 
@@ -109,8 +107,7 @@ public class Relacion {
 	}
 
 	public ArrayList<FormaNormal> getFormaNormalBC() {
-		if (this.formaNormalBC == null)
-			calcularFNBC();
+		calcularFNBC();
 		return formaNormalBC;
 	}
 
