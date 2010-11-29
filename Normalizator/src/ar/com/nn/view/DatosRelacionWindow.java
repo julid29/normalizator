@@ -127,7 +127,8 @@ public class DatosRelacionWindow extends JFrame {
 
 	public void completarDatos() {
 		
-		lblRelacionNombre.setText("Relaciï¿½n " + r.getNombre() + " estï¿½ en " + r.getFormaNormal());
+		r.calcularClaves();
+		lblRelacionNombre.setText("Relaci—n " + r.getNombre() + " est‡ en " + r.getFormaNormal());
 		lblAtributos.setText("R:" + r.getAtributos());
 		
 //		Cargo SC
