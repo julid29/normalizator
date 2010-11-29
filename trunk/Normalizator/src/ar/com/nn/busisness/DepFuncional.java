@@ -97,6 +97,13 @@ public class DepFuncional {
 		return contenido;
 	}
 
+	public boolean determinantesParcial(ArrayList<String> atributos){
+		if (atributos.containsAll(determinantes))
+			return true;
+		else
+			return false;
+	}
+	
 	public boolean loTenesEnDeterminados(ArrayList<String> atributos) {
 		boolean contenido = true; // Variable que determinara si esta el
 		// atributo en los determinantes
@@ -113,6 +120,25 @@ public class DepFuncional {
 		}
 	return contenido;
 
+	}
+	
+	public boolean determinadosParcial(ArrayList<String> atributos){
+		if (atributos.containsAll(determinados))
+			return true;
+		else
+			return false;
+	}
+	
+	public String toString(){
+		String depFun="";
+		for (String dtte : determinantes){
+			depFun += dtte; 
+		}
+		depFun += "->";
+		for (String ddo : determinados){
+			depFun += ddo; 
+		}
+		return depFun;
 	}
 	
 }// Fin de la clase
