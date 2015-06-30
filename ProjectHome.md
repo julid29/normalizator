@@ -1,0 +1,1 @@
+Este proyecto es para armar un normalizador de relaciones para que sea útil para todas las personas que trabajan en el ambiente de las Bases de Datos.
